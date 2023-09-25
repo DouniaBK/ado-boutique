@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-(2xnkbc^sgedl3#bob+*irbd-wegp*3oq=d_v6d)9p9&d)718l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://8000-douniabk-adoboutique-ea6io7xxx3d.ws-eu104.gitpod.io/',  '8000-douniabk-adoboutique-ea6io7xxx3d.ws-eu104.gitpod.io']
+ALLOWED_HOSTS = ['8000-douniabk-adoboutique-qy4a999ii5u.ws-eu104.gitpod.io/', 'https://8000-douniabk-adoboutique-qy4a999ii5u.ws-eu104.gitpod.io', '8000-douniabk-adoboutique-qy4a999ii5u.ws-eu104.gitpod.io']
 
 
 # Application definition
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',  # handles login logout passwordreset
-    'allauth.socialaccount',  # allows login with social media account, also allws to track users activities through socialmedia good 4 marketing
+    'allauth.socialaccount',  # allows login with social media account, also allows to track users activities through socialmedia good 4 marketing
 ]
 
 MIDDLEWARE = [
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "allauth.account.middleware.AccountMiddleware",
+    #'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'ado_boutique.urls'
@@ -96,8 +96,18 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
 SITE_ID = 1
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory' 
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_USERNAME_MIN_LENGTH = 4  # minimum lenth username setup
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'  # redirect to home page upon successful login
 
 WSGI_APPLICATION = 'ado_boutique.wsgi.application'
 
@@ -155,3 +165,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = ['https://*.example.com', 'https://8000-douniabk-adoboutique-qy4a999ii5u.ws-eu104.gitpod.io']
+
+USE_I18N = True
