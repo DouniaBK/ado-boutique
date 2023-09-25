@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-(2xnkbc^sgedl3#bob+*irbd-wegp*3oq=d_v6d)9p9&d)718l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://8000-douniabk-adoboutique-ea6io7xxx3d.ws-eu104.gitpod.io/',  '8000-douniabk-adoboutique-ea6io7xxx3d.ws-eu104.gitpod.io' ]
+ALLOWED_HOSTS = ['https://8000-douniabk-adoboutique-ea6io7xxx3d.ws-eu104.gitpod.io/',  '8000-douniabk-adoboutique-ea6io7xxx3d.ws-eu104.gitpod.io']
 
 
 # Application definition
@@ -37,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # The following apps are required for auth:
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',  # handles login logout passwordreset
+    'allauth.socialaccount',  # allows login with social media account, also allws to track users activities through socialmedia good 4 marketing
 ]
 
 MIDDLEWARE = [
@@ -47,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'ado_boutique.urls'
@@ -59,13 +66,38 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request',  # required for allauth to access the  http response /aullauth template
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'APP': {
+            'client_id': '747309140873-sqitn722gku65q.apps.googleusercontent.com',
+            'secret': 'ip1-mGTtRc31XGsxrfuZ8CLB',
+            'key': ''
+        }
+    }
+}
+SITE_ID = 1
+
 
 WSGI_APPLICATION = 'ado_boutique.wsgi.application'
 
