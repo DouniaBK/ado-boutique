@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',  # handles login logout passwordreset
     'allauth.socialaccount',  # allows login with social media account, also allows to track users activities through socialmedia good 4 marketing
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +68,9 @@ ROOT_URLCONF = 'ado_boutique.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                os.path.join(BASE_DIR, 'templates', 'allauth'),
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
