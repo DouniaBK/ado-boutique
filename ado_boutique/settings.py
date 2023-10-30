@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',  # allows login with social media account, also allows to track users activities through socialmedia good 4 marketing
     'home',
     'products',
+    'bag',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +80,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',  # required for allauth to access the  http response /aullauth template
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'bag.contexts.bag_contents',
+                
             ],
         },
     },
@@ -186,3 +189,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = ['https://*.example.com', 'https://8000-douniabk-adoboutique-qy4a999ii5u.ws-eu104.gitpod.io']
 
 USE_I18N = True
+
+
+FREE_DELIVERY_THRESHOLD = 50
+STANDARD_DELIVERY_PERCENTAGE = 10
